@@ -11,6 +11,10 @@ body {
   letter-spacing: 7px;
 }
 
+.blood {
+  color: #880000;
+}
+
 .text1 {
   position: relative;
   text-align: center;
