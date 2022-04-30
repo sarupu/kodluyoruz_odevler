@@ -81,3 +81,16 @@ const menu = [
     desc: `Red bean paste dessert, serving with honey.`,
   },
 ];
+
+const btnContainer = document.querySelector(".btn-container")
+const menuItems = document.querySelector(".section-center")
+
+const allCategories = menu.reduce((total, current) => {
+  if (!total.includes(current.category)) {
+    total.push(current.category)
+  }
+  return total
+}, ["All"]);
+  
+
+
