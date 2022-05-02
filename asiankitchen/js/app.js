@@ -82,15 +82,104 @@ const menu = [
   },
 ];
 
+
+// menü ve buton seçimleri
 const btnContainer = document.querySelector(".btn-container")
 const menuItems = document.querySelector(".section-center")
 
+
+// const allCategories = menu.map((item) => {
+//   let total = ["All"]
+//   if (!total.includes(item.category)) {
+//     total.push(item.category);
+//   }
+//   return total
+// });
 const allCategories = menu.reduce((total, current) => {
   if (!total.includes(current.category)) {
     total.push(current.category)
   }
   return total
 }, ["All"]);
+
+
+// console.log(allCategories[0]);
+allCategories.forEach((item) => {
+  btnContainer.insertAdjacentHTML("beforeend", `<button class="btn btn-outline-dark btn-item" data-id="${item}">${item}</button>`)
+});
+
+menu.forEach(({title, price, img, desc}) => {
+  menuItems.innerHTML += `
+  <div class="menu-items col-lg-6 col-sm-12">
+        <img src="${img}" alt="${title}" class="photo">
+        <div class="menu-info">
+          <div class="menu-title">
+            <h4>${title}</h4>
+            <h4 class="price">${price}</h4>
+          </div>
+          <div class="menu-text">
+            ${desc}
+          </div>
+        </div>
+      </div>
+  `;
+}
+);
+
+const btnArray = (Array.from(btnContainer.children));
+
+// console.log(btnArray[0].innerHTML)
+
+// console.log((Array.from(btnContainer.children))[0].value)
+// console.log((Array.from(btnContainer.children))[0].nodeValue)
+
+btnArray.forEach(button => {
   
+  const btnName = button.innerHTML
 
+  button.addEventListener("click", function filterNStuff(button) {
+    let result = "";
+    if (btnName == "All") {
+      menu.forEach(({title, price, img, desc}) => {
+      
+        result += `
+        <div class="menu-items col-lg-6 col-sm-12">
+              <img src="${img}" alt="${title}" class="photo">
+              <div class="menu-info">
+                <div class="menu-title">
+                  <h4>${title}</h4>
+                  <h4 class="price">${price}</h4>
+                </div>
+                <div class="menu-text">
+                  ${desc}
+                </div>
+              </div>
+            </div>
+        `;
+      }
+    );
+    }
+    else {
+      let filteredMenu = menu.filter((item) => item.category == btnName )
+    
+      filteredMenu.forEach(({title, price, img, desc}) => {
+        result += `
+        <div class="menu-items col-lg-6 col-sm-12">
+              <img src="${img}" alt="${title}" class="photo">
+              <div class="menu-info">
+                <div class="menu-title">
+                  <h4>${title}</h4>
+                  <h4 class="price">${price}</h4>
+                </div>
+                <div class="menu-text">
+                  ${desc}
+                </div>
+              </div>
+            </div>
+        `;
+      });
 
+    }
+    menuItems.innerHTML = result;
+  });
+});
