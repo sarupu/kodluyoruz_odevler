@@ -88,13 +88,7 @@ const btnContainer = document.querySelector(".btn-container")
 const menuItems = document.querySelector(".section-center")
 
 
-// const allCategories = menu.map((item) => {
-//   let total = ["All"]
-//   if (!total.includes(item.category)) {
-//     total.push(item.category);
-//   }
-//   return total
-// });
+// tüm kategorilerin tutulduğu bir liste oluşturuldu
 const allCategories = menu.reduce((total, current) => {
   if (!total.includes(current.category)) {
     total.push(current.category)
@@ -103,11 +97,13 @@ const allCategories = menu.reduce((total, current) => {
 }, ["All"]);
 
 
-// console.log(allCategories[0]);
+// bu liste döndürülerek template literal ile butonlar oluşturuldu
 allCategories.forEach((item) => {
   btnContainer.insertAdjacentHTML("beforeend", `<button class="btn btn-outline-dark btn-item" data-id="${item}">${item}</button>`)
 });
 
+
+// sayfa açıldığında karşımıza tüm yemek seçenekleri çıkıyor olmalı. bu nedenle tüm menü elemanlarının igtiyacım olan özelliklerini çağırarak menü elemanlarını html'e yazdım
 menu.forEach(({title, price, img, desc}) => {
   menuItems.innerHTML += `
   <div class="menu-items col-lg-6 col-sm-12">
@@ -126,13 +122,10 @@ menu.forEach(({title, price, img, desc}) => {
 }
 );
 
+// buton elementlerinin arrayini tuttum
 const btnArray = (Array.from(btnContainer.children));
 
-// console.log(btnArray[0].innerHTML)
-
-// console.log((Array.from(btnContainer.children))[0].value)
-// console.log((Array.from(btnContainer.children))[0].nodeValue)
-
+// bu array için bir foreach döndürdüm ve hepsine eventlistener ekledim. tıklandığında tıkladığınız butona göre tüm menüde filteleme yapıp menü elemanlarını sayfaya yazdırıyorum.
 btnArray.forEach(button => {
   
   const btnName = button.innerHTML
