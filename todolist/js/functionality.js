@@ -11,6 +11,9 @@ function newElement() {
     ulDOM.lastChild.addEventListener("click", (e) => e.currentTarget.classList.toggle("checked"))
     xMark.addEventListener("click", (e) => newLi.remove())
   }
+  else {
+    alert("Geçersiz bir giriş yaptınız!")
+  }
   task.value = ""
 }
 
